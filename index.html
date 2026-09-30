@@ -1,0 +1,1449 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gimana Malam Ini? 🌌</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #020617,
+            #07152f,
+            #111936,
+            #050816
+        );
+}
+
+
+/* =========================
+   AURORA
+========================= */
+
+.aurora {
+    position: fixed;
+    width: 700px;
+    height: 700px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(75, 140, 255, .18),
+            transparent 65%
+        );
+
+    filter: blur(50px);
+
+    animation: aurora 8s ease-in-out infinite alternate;
+
+    pointer-events: none;
+}
+
+.aurora.one {
+    top: -300px;
+    left: -250px;
+}
+
+.aurora.two {
+    bottom: -350px;
+    right: -250px;
+
+    animation-delay: 2s;
+}
+
+@keyframes aurora {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.3) translate(50px, -30px);
+    }
+}
+
+
+/* =========================
+   BINTANG
+========================= */
+
+.stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.star {
+    position: absolute;
+
+    width: 2px;
+    height: 2px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    animation:
+        blink 2s infinite alternate;
+}
+
+@keyframes blink {
+    from {
+        opacity: .1;
+    }
+
+    to {
+        opacity: .9;
+    }
+}
+
+
+/* =========================
+   BULAN
+========================= */
+
+.moon {
+    position: fixed;
+
+    top: 55px;
+    right: 8%;
+
+    width: 100px;
+    height: 100px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #ffffff,
+            #dbe8ff 55%,
+            #9fb5df
+        );
+
+    box-shadow:
+        0 0 30px rgba(190,220,255,.5),
+        0 0 90px rgba(100,150,255,.18);
+
+    z-index: 1;
+}
+
+.moon::before,
+.moon::after {
+    content: "";
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background: rgba(100,120,150,.13);
+}
+
+.moon::before {
+    width: 18px;
+    height: 18px;
+
+    top: 25px;
+    left: 25px;
+}
+
+.moon::after {
+    width: 12px;
+    height: 12px;
+
+    bottom: 25px;
+    right: 20px;
+}
+
+
+/* =========================
+   LAYAR PEMBUKA
+========================= */
+
+.intro {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    background:
+        rgba(2,6,23,.96);
+
+    transition:
+        opacity .8s,
+        visibility .8s;
+}
+
+.intro.hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.intro-box {
+    width: min(90%, 520px);
+
+    text-align: center;
+
+    padding: 45px 30px;
+
+    border-radius: 35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(20,35,70,.85),
+            rgba(8,15,35,.9)
+        );
+
+    border:
+        1px solid
+        rgba(130,180,255,.2);
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.7);
+}
+
+.intro-icon {
+    font-size: 75px;
+
+    margin-bottom: 20px;
+
+    animation:
+        float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.intro h1 {
+    font-size:
+        clamp(32px, 7vw, 55px);
+
+    margin-bottom: 15px;
+
+    color: #d9e8ff;
+}
+
+.intro p {
+    color: #aebbd4;
+
+    line-height: 1.8;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   SLIDER
+========================= */
+
+.slider {
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+
+    z-index: 5;
+}
+
+.slide {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+
+    opacity: 0;
+
+    transform:
+        scale(.92)
+        translateY(30px);
+
+    transition:
+        opacity .7s ease,
+        transform .7s ease;
+
+    pointer-events: none;
+}
+
+.slide.active {
+    opacity: 1;
+
+    transform:
+        scale(1)
+        translateY(0);
+
+    pointer-events: auto;
+}
+
+
+/* =========================
+   GLASS CARD
+========================= */
+
+.card {
+    width: min(92%, 650px);
+
+    padding: 45px 32px;
+
+    text-align: center;
+
+    border-radius: 32px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(17,32,62,.72),
+            rgba(7,14,31,.78)
+        );
+
+    border:
+        1px solid
+        rgba(150,190,255,.18);
+
+    backdrop-filter:
+        blur(22px);
+
+    box-shadow:
+        0 30px 100px
+        rgba(0,0,0,.55);
+}
+
+
+/* =========================
+   TEXT
+========================= */
+
+.label {
+    display: inline-block;
+
+    padding: 7px 14px;
+
+    border-radius: 30px;
+
+    margin-bottom: 18px;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+
+    color: #9cc7ff;
+
+    background:
+        rgba(80,140,255,.1);
+
+    border:
+        1px solid
+        rgba(100,160,255,.15);
+}
+
+h2 {
+    font-size:
+        clamp(28px, 6vw, 45px);
+
+    color: #e6efff;
+
+    margin-bottom: 20px;
+}
+
+p {
+    color: #b8c4d9;
+
+    font-size: 17px;
+
+    line-height: 1.9;
+
+    margin-bottom: 25px;
+}
+
+.big-icon {
+    font-size: 65px;
+
+    margin-bottom: 18px;
+
+    filter:
+        drop-shadow(
+            0 0 20px
+            rgba(130,180,255,.25)
+        );
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+    border: none;
+
+    padding: 13px 24px;
+
+    margin: 5px;
+
+    border-radius: 14px;
+
+    color: white;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #316bd6,
+            #6c52c9
+        );
+
+    box-shadow:
+        0 10px 30px
+        rgba(60,100,220,.2);
+
+    transition: .25s;
+}
+
+button:hover {
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(80,130,255,.3);
+}
+
+
+/* =========================
+   PILIHAN
+========================= */
+
+.options {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+}
+
+.options button {
+    min-height: 55px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid
+        rgba(150,190,255,.13);
+
+    box-shadow: none;
+}
+
+.options button:hover {
+    background:
+        rgba(80,130,255,.12);
+}
+
+
+/* =========================
+   WHATSAPP
+========================= */
+
+.whatsapp {
+    background:
+        linear-gradient(
+            135deg,
+            #119c62,
+            #087447
+        );
+}
+
+
+/* =========================
+   NAVIGASI
+========================= */
+
+.nav {
+    position: fixed;
+
+    bottom: 22px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 30;
+
+    display: flex;
+
+    gap: 8px;
+}
+
+.nav button {
+    width: 45px;
+    height: 40px;
+
+    padding: 0;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    border:
+        1px solid
+        rgba(150,190,255,.12);
+
+    box-shadow: none;
+}
+
+
+/* =========================
+   MUSIK
+========================= */
+
+.music-status {
+    position: fixed;
+
+    top: 20px;
+    left: 20px;
+
+    z-index: 40;
+
+    padding: 9px 14px;
+
+    border-radius: 20px;
+
+    color: #bcd8ff;
+
+    background:
+        rgba(5,12,28,.7);
+
+    border:
+        1px solid
+        rgba(120,170,255,.15);
+
+    font-size: 12px;
+
+    backdrop-filter:
+        blur(10px);
+}
+
+
+/* =========================
+   BINTANG JATUH
+========================= */
+
+.shooting-star {
+    position: fixed;
+
+    width: 100px;
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            white
+        );
+
+    transform:
+        rotate(-35deg);
+
+    animation:
+        shooting 3s linear infinite;
+
+    opacity: 0;
+
+    z-index: 2;
+}
+
+@keyframes shooting {
+
+    0% {
+        top: 5%;
+        left: 90%;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    30% {
+        top: 35%;
+        left: 55%;
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+.progress {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+
+    height: 3px;
+
+    z-index: 50;
+
+    background:
+        linear-gradient(
+            90deg,
+            #4c91ff,
+            #9b72ff
+        );
+
+    transition: width .5s;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 550px) {
+
+    .moon {
+        width: 65px;
+        height: 65px;
+
+        top: 55px;
+        right: 7%;
+    }
+
+    .card {
+        padding: 35px 20px;
+    }
+
+    .options {
+        grid-template-columns: 1fr;
+    }
+
+    .big-icon {
+        font-size: 52px;
+    }
+
+    p {
+        font-size: 16px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =========================
+     AURORA
+========================= -->
+
+<div class="aurora one"></div>
+<div class="aurora two"></div>
+
+
+<!-- BULAN -->
+
+<div class="moon"></div>
+
+
+<!-- BINTANG -->
+
+<div
+    class="stars"
+    id="stars">
+</div>
+
+
+<!-- BINTANG JATUH -->
+
+<div class="shooting-star"></div>
+
+
+<!-- =========================
+     MUSIK
+========================= -->
+
+<audio
+    id="music"
+    loop
+    preload="auto">
+
+    <source
+        src="lagu.mp3"
+        type="audio/mpeg">
+
+</audio>
+
+
+<div
+    class="music-status"
+    id="musicStatus">
+
+    🎵 Menunggu musik...
+
+</div>
+
+
+<!-- =========================
+     INTRO
+========================= -->
+
+<div
+    class="intro"
+    id="intro">
+
+    <div class="intro-box">
+
+        <div class="intro-icon">
+            🌙
+        </div>
+
+        <h1>
+            Malam ini...
+        </h1>
+
+        <p>
+
+            Ada sedikit ruang untuk
+            berhenti sejenak.
+
+            <br><br>
+
+            Tarik napas,
+            dengarkan lagunya,
+            lalu kita ngobrol sebentar.
+
+        </p>
+
+        <button onclick="startNight()">
+
+            🌌 Masuk ke malam ini
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     SLIDER
+========================= -->
+
+<div class="slider">
+
+
+<!-- 1 -->
+
+<section class="slide active">
+
+<div class="card">
+
+    <div class="label">
+        MIDNIGHT
+    </div>
+
+    <div class="big-icon">
+        🌙
+    </div>
+
+    <h2>
+        Gimana malam ini?
+    </h2>
+
+    <p>
+
+        Malam sudah cukup tenang.
+
+        <br><br>
+
+        Sekarang giliran kamu.
+
+        <br>
+
+        <b>
+            Gimana perasaanmu malam ini?
+        </b>
+
+    </p>
+
+    <button onclick="nextSlide()">
+        Mulai cerita →
+    </button>
+
+</div>
+
+</section>
+
+
+<!-- 2 -->
+
+<section class="slide">
+
+<div class="card">
+
+    <div class="label">
+        MOOD
+    </div>
+
+    <div class="big-icon">
+        🌌
+    </div>
+
+    <h2>
+        Malam ini rasanya...
+    </h2>
+
+    <div class="options">
+
+        <button onclick="nextSlide()">
+            ✨ Tenang
+        </button>
+
+        <button onclick="nextSlide()">
+            😊 Bahagia
+        </button>
+
+        <button onclick="nextSlide()">
+            🌧️ Sedikit sedih
+        </button>
+
+        <button onclick="nextSlide()">
+            🫠 Capek
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- 3 -->
+
+<section class="slide">
+
+<div class="card">
+
+    <div class="label">
+        TONIGHT
+    </div>
+
+    <div class="big-icon">
+        🎧
+    </div>
+
+    <h2>
+        Kalau malam begini...
+    </h2>
+
+    <p>
+        Apa yang paling ingin kamu lakukan?
+    </p>
+
+    <div class="options">
+
+        <button onclick="nextSlide()">
+            🎧 Dengerin lagu
+        </button>
+
+        <button onclick="nextSlide()">
+            ☕ Duduk santai
+        </button>
+
+        <button onclick="nextSlide()">
+            📱 Main HP
+        </button>
+
+        <button onclick="nextSlide()">
+            😴 Tidur
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- 4 -->
+
+<section class="slide">
+
+<div class="card">
+
+    <div class="label">
+        THOUGHTS
+    </div>
+
+    <div class="big-icon">
+        ☁️
+    </div>
+
+    <h2>
+        Ada yang memenuhi pikiran?
+    </h2>
+
+    <p>
+
+        Kadang ketika semuanya
+        sudah mulai sunyi,
+
+        <br><br>
+
+        justru pikiran kita
+        menjadi paling ramai.
+
+        <br><br>
+
+        Tidak perlu menjawab
+        kalau belum siap.
+
+    </p>
+
+    <button onclick="nextSlide()">
+        Lanjut →
+    </button>
+
+</div>
+
+</section>
+
+
+<!-- 5 -->
+
+<section class="slide">
+
+<div class="card">
+
+    <div class="label">
+        TAKE A BREAK
+    </div>
+
+    <div class="big-icon">
+        🫶
+    </div>
+
+    <h2>
+        Istirahat sebentar
+    </h2>
+
+    <p>
+
+        Tidak semua hal harus
+        selesai malam ini.
+
+        <br><br>
+
+        Ada beberapa hal yang
+        boleh menunggu sampai besok.
+
+        <br><br>
+
+        Sekarang,
+        kasih sedikit waktu
+        untuk diri sendiri.
+
+    </p>
+
+    <button onclick="nextSlide()">
+        Aku lanjut →
+    </button>
+
+</div>
+
+</section>
+
+
+<!-- 6 -->
+
+<section class="slide">
+
+<div class="card">
+
+    <div class="label">
+        LITTLE THINGS
+    </div>
+
+    <div class="big-icon">
+        ☕✨
+    </div>
+
+    <h2>
+        Hal kecil malam ini
+    </h2>
+
+    <p>
+
+        Minum air.
+
+        <br>
+
+        Rapikan tempat tidur.
+
+        <br>
+
+        Matikan sebentar pikiran
+        tentang hari esok.
+
+        <br><br>
+
+        Nikmati beberapa menit
+        tanpa terburu-buru.
+
+    </p>
+
+    <button onclick="nextSlide()">
+        Lanjut 🌙
+    </button>
+
+</div>
+
+</section>
+
+
+<!-- 7 -->
+
+<section class="slide">
+
+<div class="card">
+
+    <div class="label">
+        MESSAGE
+    </div>
+
+    <div class="big-icon">
+        💙
+    </div>
+
+    <h2>
+        Satu pesan untuk malam ini
+    </h2>
+
+    <p>
+
+        Kalau hari ini tidak berjalan
+        seperti yang kamu harapkan,
+
+        <br><br>
+
+        bukan berarti besok
+        akan sama.
+
+        <br><br>
+
+        Malam ini cukup menjadi
+        tempat untuk beristirahat.
+
+    </p>
+
+    <button onclick="nextSlide()">
+        Lanjut →
+    </button>
+
+</div>
+
+</section>
+
+
+<!-- 8 -->
+
+<section class="slide">
+
+<div class="card">
+
+    <div class="label">
+        TALK
+    </div>
+
+    <div class="big-icon">
+        💬
+    </div>
+
+    <h2>
+        Masih mau ngobrol?
+    </h2>
+
+    <p>
+
+        Kalau ada cerita,
+        kamu bisa mengirim pesan.
+
+        <br><br>
+
+        Tidak harus cerita panjang.
+
+        <br>
+
+        Cukup bilang,
+        <b>"Aku mau cerita."</b>
+
+    </p>
+
+    <button
+        class="whatsapp"
+        onclick="openWhatsApp()">
+
+        💬 Buka WhatsApp
+
+    </button>
+
+    <button onclick="nextSlide()">
+        Lanjut →
+    </button>
+
+</div>
+
+</section>
+
+
+<!-- 9 -->
+
+<section class="slide">
+
+<div class="card">
+
+    <div class="label">
+        GOOD NIGHT
+    </div>
+
+    <div class="big-icon">
+        🌙✨
+    </div>
+
+    <h2>
+        Sampai di sini dulu
+    </h2>
+
+    <p>
+
+        Semoga malam ini
+        terasa sedikit lebih tenang.
+
+        <br><br>
+
+        Terima kasih sudah
+        meluangkan waktu sebentar.
+
+        <br><br>
+
+        <b>
+            Selamat malam. 🌌
+        </b>
+
+    </p>
+
+    <button onclick="restart()">
+        ↻ Ulangi
+    </button>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+<!-- =========================
+     NAVIGASI
+========================= -->
+
+<div class="nav">
+
+    <button onclick="prevSlide()">
+        ‹
+    </button>
+
+    <button onclick="nextSlide()">
+        ›
+    </button>
+
+</div>
+
+
+<!-- PROGRESS -->
+
+<div
+    class="progress"
+    id="progress">
+</div>
+
+
+<script>
+
+/* =========================
+   MUSIK
+========================= */
+
+const music =
+    document.getElementById("music");
+
+const intro =
+    document.getElementById("intro");
+
+const musicStatus =
+    document.getElementById("musicStatus");
+
+
+function startNight() {
+
+    music.volume = 0.8;
+
+    music.play()
+        .then(function() {
+
+            musicStatus.innerHTML =
+                "🎵 Musik sedang berjalan";
+
+            intro.classList.add("hide");
+
+        })
+        .catch(function() {
+
+            musicStatus.innerHTML =
+                "🎵 Musik belum tersedia";
+
+        });
+}
+
+
+/*
+    Loop tambahan.
+*/
+
+music.addEventListener(
+    "ended",
+    function() {
+
+        music.currentTime = 0;
+
+        music.play();
+
+    }
+);
+
+
+/* =========================
+   SLIDER
+========================= */
+
+let currentSlide = 0;
+
+const slides =
+    document.querySelectorAll(".slide");
+
+const progress =
+    document.getElementById("progress");
+
+
+function showSlide(index) {
+
+    slides.forEach(function(slide) {
+
+        slide.classList.remove(
+            "active"
+        );
+
+    });
+
+    slides[index].classList.add(
+        "active"
+    );
+
+    progress.style.width =
+        (
+            ((index + 1) /
+            slides.length) * 100
+        ) + "%";
+}
+
+
+function nextSlide() {
+
+    currentSlide++;
+
+    if (
+        currentSlide >=
+        slides.length
+    ) {
+        currentSlide = 0;
+    }
+
+    showSlide(currentSlide);
+}
+
+
+function prevSlide() {
+
+    currentSlide--;
+
+    if (currentSlide < 0) {
+        currentSlide =
+            slides.length - 1;
+    }
+
+    showSlide(currentSlide);
+}
+
+
+function restart() {
+
+    currentSlide = 0;
+
+    showSlide(currentSlide);
+}
+
+
+/* =========================
+   WHATSAPP
+========================= */
+
+function openWhatsApp() {
+
+    /*
+       GANTI NOMOR DI SINI
+
+       Contoh:
+       081234567890
+
+       menjadi:
+       6281234567890
+    */
+
+    const nomor =
+        "6281234567890";
+
+    const pesan =
+        "Hai, aku mau cerita tentang malam ini 🌙";
+
+    const url =
+        "https://wa.me/" +
+        nomor +
+        "?text=" +
+        encodeURIComponent(pesan);
+
+    window.open(
+        url,
+        "_blank"
+    );
+}
+
+
+/* =========================
+   BINTANG
+========================= */
+
+const stars =
+    document.getElementById("stars");
+
+
+for (
+    let i = 0;
+    i < 140;
+    i++
+) {
+
+    const star =
+        document.createElement("div");
+
+    star.className = "star";
+
+    star.style.left =
+        Math.random() * 100 + "vw";
+
+    star.style.top =
+        Math.random() * 100 + "vh";
+
+    star.style.animationDelay =
+        Math.random() * 3 + "s";
+
+    star.style.opacity =
+        Math.random();
+
+    stars.appendChild(star);
+}
+
+
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "ArrowRight"
+        ) {
+            nextSlide();
+        }
+
+        if (
+            event.key === "ArrowLeft"
+        ) {
+            prevSlide();
+        }
+
+    }
+);
+
+
+/* =========================
+   PROGRESS
+========================= */
+
+showSlide(0);
+
+</script>
+
+</body>
+</html>
